@@ -37,7 +37,7 @@ etl.ipynb reads and processes a single file from song_data and log_data and load
 - sql_queries.py contains all your sql queries, and is imported into the last three files above.
 - README.md You are reading it.
 
-# important Note 
+# Important Note 
 
-Please Download the data file you can find it in this following 
+Please Download the data file to run the project you can find it in this following 
 [url](https://labrosa.ee.columbia.edu/millionsong/)
