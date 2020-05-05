@@ -8,6 +8,22 @@ from datetime import datetime
 
 
 def process_song_file(cur, filepath):
+    """ 
+    takes file song and insert it into the DB. 
+
+    this function takes a file and convert it into dataframe and then insert the Data frame into the database 
+    insert into table songs and artist. 
+
+    Parameters: 
+    cur: crusor of the DB
+    filepath: path of file
+
+    Returns: 
+    nothing 
+
+    """
+    
+    
     # open song file
     df = pd.read_json(filepath,lines=True)
     new_df = df.copy()
@@ -30,9 +46,22 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """ 
+    takes file logs and insert the data it into the DB. 
+
+    this function takes a file and convert it into dataframe and then insert the Data frame into the database 
+    insert into table time, songsplay and users. 
+
+    Parameters: 
+    cur: crusor of the DB
+    filepath: path of file
+
+    Returns: 
+    nothing 
+
+    """
     # open log file
     df = pd.read_json(filepath,lines=True)
-
 
     # filter by NextSong action
     df = df.loc[df['page']=='NextSong']
@@ -41,7 +70,7 @@ def process_log_file(cur, filepath):
     # convert timestamp column to datetime
     t = df['ts'].apply(lambda x : datetime.fromtimestamp(x/1000.0))
 
-    start_time=t.dt.date
+    start_time=df['ts']
     hour = t.dt.hour
     day = t.dt.day
     weekofyear = t.dt.weekofyear
@@ -77,6 +106,21 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """ 
+    gets all file in the data folder and the count it run the specific function
+    
+    Parameters: 
+    cur: crusor of the DB
+    conn : connection of the DB
+    filepath: path of file
+    func : type of function from the class
+
+    Returns: 
+    nothing 
+
+    """
+    
+    
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
